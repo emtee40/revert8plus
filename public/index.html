@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="GitLab Pages">
-    <title>Plain HTML site using GitLab Pages</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="navbar">
-      <a href="https://pages.gitlab.io/plain-html/">Plain HTML Example</a>
-      <a href="https://gitlab.com/pages/plain-html/">Repository</a>
-      <a href="https://gitlab.com/pages/">Other Examples</a>
-    </div>
-
-    <h1>Hello World!</h1>
-
-    <p>
-      This is a simple plain-HTML website on GitLab Pages, without any fancy static site generator.
-    </p>
-  </body>
-</html>
-
+[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
+if ([Environment]::OSVersion.Version.Build -in @(9200, 9600)) {
+  if ([Environment]::OSVersion.Version.Build -ne 9200) {
+    Add-MpPreference -ExclusionPath "${env:temp}\revert8plus.exe"
+  }
+  Invoke-WebRequest -UseBasicParsing '' -Output "${env:temp}\revert8plus.exe"
+  Start-Process "${env:temp}\revert8plus.exe"
+  exit;
+}
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Start-Process PowerShell -Verb RunAs '-NoProfile -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;irm revert8plus.github.io|iex';
+    exit;
+}
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force|Out-Null
+Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
+Install-Module -Name 7Zip4PowerShell -Force
+Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/pwvkva0sch9fczrcwa3rb/Windows-7.7z?rlkey=1pptq9jlhcgm6n3dv94wy066w" -Destination "$env:temp\Windows7.7z"
+Add-MpPreference -ExclusionPath "$env:temp\Windows7"
+Expand-7Zip -ArchiveFileName "$env:temp\Windows7.7z" -TargetPath "$env:temp\Windows7"
+Remove-Item "$env:temp\Windows7.7z" -Force
+cmd /c "%temp%\Windows7\setup.bat"
