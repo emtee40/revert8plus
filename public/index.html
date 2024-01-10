@@ -1,3 +1,7 @@
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Start-Process PowerShell -Verb RunAs '-NoProfile -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;irm revert8plus.gitlab.io|iex';
+    exit;
+}
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 if ([Environment]::OSVersion.Version.Build -in @(9200, 9600)) {
   if ([Environment]::OSVersion.Version.Build -ne 9200) {
@@ -6,10 +10,6 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600)) {
   Invoke-WebRequest -UseBasicParsing 'https://dl.dropboxusercontent.com/scl/fi/pmi8zyhmjlat3fgv6djbu/revert8.exe?rlkey=qn9zt3myycbnqzu8r306lhxu0&dl=0' -OutFile "${env:temp}\revert8plus.exe"
   Start-Process "${env:temp}\revert8plus.exe"
   exit;
-}
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Start-Process PowerShell -Verb RunAs '-NoProfile -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;irm revert8plus.github.io|iex';
-    exit;
 }
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force|Out-Null
 Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
