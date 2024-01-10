@@ -3,7 +3,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     exit;
 }
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-if ([Environment]::OSVersion.Version.Build -in @(9200, 9600)) {
+if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
   if ([Environment]::OSVersion.Version.Build -ne 9200) {
     Add-MpPreference -ExclusionPath "${env:temp}\revert8plus.exe"
   }
