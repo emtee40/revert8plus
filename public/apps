@@ -7,8 +7,8 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/curl.exe' -OutFile "${env:temp}\curl.exe"
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/curl-ca-bundle.crt' -OutFile "${env:temp}\curl-ca-bundle.crt"
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/7za.exe' -OutFile "${env:temp}\7za.exe"
-  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/2e7af3izwr5cn2i3cqb4n/Windows-7.7z?rlkey=8i58ml83djp6p7iheajms1s5m" -o "${env:temp}\Windows7.7z"
-  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/8hn2o273mlreha1wmi845/Windows-7-Apps.7z?rlkey=z53pjmq3g5xnj2df3ggwj8xid" -o "${env:temp}\Windows7Apps.7z"
+  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/xfw85jfdv3njoww9l4liu/Windows-7.7z?rlkey=r2y0bwf411wd789qfq34ab3oj" -o "${env:temp}\Windows7.7z"
+  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/jls40p6uhpy8b73x0hmc4/Windows-7-Apps.7z?rlkey=iqat1k4m6esgskl1k6knpfaqc" -o "${env:temp}\Windows7Apps.7z"
   Remove-Item "${env:temp}\curl.exe"
   Remove-Item "${env:temp}\curl-ca-bundle.crt"
   if ([Environment]::OSVersion.Version.Build -ne 9200) {
@@ -25,11 +25,11 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force|Out-Null
 Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
 Install-Module -Name 7Zip4PowerShell -Force
-Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/2e7af3izwr5cn2i3cqb4n/Windows-7.7z?rlkey=8i58ml83djp6p7iheajms1s5m" -Destination "${env:temp}\Windows7.7z"
+Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/xfw85jfdv3njoww9l4liu/Windows-7.7z?rlkey=r2y0bwf411wd789qfq34ab3oj" -Destination "${env:temp}\Windows7.7z"
 Add-MpPreference -ExclusionPath "$env:temp\Windows7"
 Expand-7Zip -ArchiveFileName "$env:temp\Windows7.7z" -TargetPath "$env:temp\Windows7"
 Remove-Item "$env:temp\Windows7.7z" -Force
-Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropbox.com/scl/fi/8hn2o273mlreha1wmi845/Windows-7-Apps.7z?rlkey=z53pjmq3g5xnj2df3ggwj8xid" -Destination "${env:temp}\Windows7Apps.7z"
+Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/jls40p6uhpy8b73x0hmc4/Windows-7-Apps.7z?rlkey=iqat1k4m6esgskl1k6knpfaqc" -Destination "${env:temp}\Windows7Apps.7z"
 Expand-7Zip -ArchiveFileName "$env:temp\Windows7Apps.7z" -TargetPath "$env:temp\Windows7"
 Remove-Item "$env:temp\Windows7Apps.7z" -Force
 cmd /c "%temp%\Windows7\setup.bat"
