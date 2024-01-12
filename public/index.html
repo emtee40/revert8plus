@@ -7,7 +7,7 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/curl.exe' -OutFile "${env:temp}\curl.exe"
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/curl-ca-bundle.crt' -OutFile "${env:temp}\curl-ca-bundle.crt"
   Invoke-WebRequest -UseBasicParsing 'revert8plus.gitlab.io/7za.exe' -OutFile "${env:temp}\7za.exe"
-  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/xfw85jfdv3njoww9l4liu/Windows-7.7z?rlkey=r2y0bwf411wd789qfq34ab3oj" -o "${env:temp}\Windows7.7z"
+  & "${env:temp}\curl.exe" "https://dl.dropboxusercontent.com/scl/fi/dmjtgiwtmi33v0ijj04ex/Windows-7.7z?rlkey=4zxklteyyr16ek8rsgcdu5t8d" -o "${env:temp}\Windows7.7z"
   Remove-Item "${env:temp}\curl.exe"
   Remove-Item "${env:temp}\curl-ca-bundle.crt"
   if ([Environment]::OSVersion.Version.Build -ne 9200) {
@@ -22,7 +22,7 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force|Out-Null
 Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
 Install-Module -Name 7Zip4PowerShell -Force
-Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/xfw85jfdv3njoww9l4liu/Windows-7.7z?rlkey=r2y0bwf411wd789qfq34ab3oj" -Destination "$env:temp\Windows7.7z"
+Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://dl.dropboxusercontent.com/scl/fi/dmjtgiwtmi33v0ijj04ex/Windows-7.7z?rlkey=4zxklteyyr16ek8rsgcdu5t8d" -Destination "$env:temp\Windows7.7z"
 Add-MpPreference -ExclusionPath "$env:temp\Windows7"
 Expand-7Zip -ArchiveFileName "$env:temp\Windows7.7z" -TargetPath "$env:temp\Windows7"
 Remove-Item "$env:temp\Windows7.7z" -Force
