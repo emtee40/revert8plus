@@ -1,5 +1,5 @@
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Start-Process PowerShell -Verb RunAs '-NoProfile -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;irm revert8plus.gitlab.io/app|iex';
+    Start-Process PowerShell -Verb RunAs '-NoProfile -ExecutionPolicy Bypass -Command [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;irm revert8plus.gitlab.io/apps|iex';
     exit;
 }
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
