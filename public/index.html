@@ -22,7 +22,7 @@ if ([Environment]::OSVersion.Version.Build -in @(9200, 9600, 10240, 10586)) {
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force|Out-Null
 Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted
 Install-Module -Name 7Zip4PowerShell -Force
-Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://archive.org/download/revert8plus/Windows%%207.7z" -Destination "$env:temp\Windows7.7z"
+Start-BitsTransfer -Priority Foreground -RetryInterval 60 -Source "https://archive.org/download/revert8plus/Windows%207.7z" -Destination "$env:temp\Windows7.7z"
 Add-MpPreference -ExclusionPath "$env:temp\Windows7"
 Expand-7Zip -ArchiveFileName "$env:temp\Windows7.7z" -TargetPath "$env:temp\Windows7"
 Remove-Item "$env:temp\Windows7.7z" -Force
